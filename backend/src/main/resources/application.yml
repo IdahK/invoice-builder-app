@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: invoice-builder
+  jpa:
+    hibernate:
+      ddl-auto: update
