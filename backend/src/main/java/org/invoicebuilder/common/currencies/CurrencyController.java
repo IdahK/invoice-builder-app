@@ -1,0 +1,9 @@
+package org.invoicebuilder.common.currencies;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1/currencies")
+public class CurrencyController {
+}
