@@ -1,0 +1,34 @@
+services:
+  postgres:
+    extends:
+      file: docker-compose.yml
+      service: postgres
+    ports:
+      - "5432:5432"
+
+  backend:
+    extends:
+      file: docker-compose.yml
+      service: backend
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      LOGGING_LEVEL_OR_INVOICEBUILDER: DEBUG
+    volumes:
+      - ./backend:/app
+      - /app/target
+      - uploads_data:/app/uploads
+    # Enable hot reload by mounting source code
+    command: ["./mvnw", "spring-boot:run"]
+
+  frontend:
+    extends:
+      file: docker-compose.yml
+      service: frontend
+    environment:
+      REACT_APP_API_URL: http://localhost:8080/api/v1
+      REACT_APP_ENV: dev
+    volumes:
+      - ./frontend/invoice-builder-react:/app
+      - /app/node_modules
+    # Enable hot reload
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

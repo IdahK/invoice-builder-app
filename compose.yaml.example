@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: 'postgres:15'
+    environment:
+      - 'POSTGRES_DB=your_database_name'
+      - 'POSTGRES_USER=your_username'
+      - 'POSTGRES_PASSWORD=your_secure_password'
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U your_username -d your_database_name"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
