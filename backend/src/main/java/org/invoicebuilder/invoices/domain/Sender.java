@@ -16,6 +16,7 @@ public class Sender {
 
     private String name;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String phoneNumber;
