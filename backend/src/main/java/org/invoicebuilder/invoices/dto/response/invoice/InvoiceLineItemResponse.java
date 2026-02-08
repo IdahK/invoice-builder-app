@@ -9,8 +9,8 @@ public record InvoiceLineItemResponse(
         UUID id,
         String description,
         int quantity,
-        BigDecimal unitPrice,
-        BigDecimal lineTotal
+        BigDecimal unit_price,
+        BigDecimal line_total
 ) {
     public static InvoiceLineItemResponse from(InvoiceLineItem item) {
         return new InvoiceLineItemResponse(

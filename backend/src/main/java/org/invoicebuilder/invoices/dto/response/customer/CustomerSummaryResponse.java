@@ -8,7 +8,7 @@ public record CustomerSummaryResponse(
         UUID id,
         String name,
         String email,
-        String phoneNumber,
+        String phone_number,
         String address,
         String country
 ) {

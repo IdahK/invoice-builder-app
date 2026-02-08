@@ -12,26 +12,26 @@ import java.util.UUID;
 
 public record InvoiceDetailResponse(
         UUID id,
-        String invoiceNumber,
+        String invoice_number,
         InvoiceStatus status,
 
-        LocalDate issueDate,
-        LocalDate dueDate,
+        LocalDate issue_date,
+        LocalDate due_date,
 
         String currency,
 
         BigDecimal subtotal,
-        BigDecimal taxRate,
-        BigDecimal taxAmount,
+        BigDecimal tax_rate,
+        BigDecimal tax_amount,
         BigDecimal discount,
-        BigDecimal discountAmount,
-        BigDecimal totalAmount,
+        BigDecimal discount_amount,
+        BigDecimal total_amount,
 
         String notes,
 
         CustomerSummaryResponse customer,
         SenderSummaryResponse sender,
 
-        List<InvoiceLineItemResponse> lineItems
+        List<InvoiceLineItemResponse> line_items
 ) {
 }
