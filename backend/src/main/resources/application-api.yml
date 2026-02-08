@@ -1,0 +1,7 @@
+# API Versioning Configuration
+api:
+  version: v1
+  default-version: v1
+  enable-version-header: true
+  enable-version-parameter: true
+  supported-versions: v1,v2

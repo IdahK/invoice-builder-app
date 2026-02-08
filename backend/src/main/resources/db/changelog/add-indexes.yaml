@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-performance-indexes
+      author: system
+      changes:
+        - createIndex:
+            tableName: invoices
+            indexName: idx_invoice_customer_id
+            columns:
+              - column:
+                  name: invoice_customer_id
+        
+        - createIndex:
+            tableName: invoices
+            indexName: idx_invoice_status
+            columns:
+              - column:
+                  name: invoice_status
+        
+        - createIndex:
+            tableName: invoices
+            indexName: idx_invoice_issue_date
+            columns:
+              - column:
+                  name: invoice_issue_date
+        
+        - createIndex:
+            tableName: invoices
+            indexName: idx_invoice_number
+            columns:
+              - column:
+                  name: invoice_number
+            unique: true
