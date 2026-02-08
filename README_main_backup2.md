@@ -21,13 +21,10 @@ invoice-builder-app/
 ├── backend/                    # Spring Boot API server
 │   ├── src/                   # Java source code
 │   ├── docs/                  # Documentation
-│   └── README.md               # Backend setup guide
+│   └── pom.xml               # Maven configuration
 ├── frontend/                  # React web application
 │   └── invoice-builder-react/ # React + Vite setup
-├── docker-compose.yml           # Main Docker configuration
-├── docker-compose.dev.yml       # Development overrides
-├── docker-compose.prod.yml      # Production overrides
-├── .env.example               # Environment variables template
+├── compose.yaml              # Docker database setup
 └── README.md                # This file
 ```
 
@@ -52,21 +49,6 @@ invoice-builder-app/
 - **Containerization**: Docker & Docker Compose
 - **Database**: PostgreSQL 15 in Docker
 - **Version Control**: Git
-
-## Application Modules
-
-### Core Business Modules
-- **Invoice Module** - Invoice creation, management, and PDF generation
-- **Customer Module** - Customer data management and relationships
-- **User Module** - User authentication, roles, and access control
-- **Payment Module** - Payment tracking, status, and processing
-- **Reports Module** - Analytics, summaries, and dashboard metrics
-
-### Module Integration
-- **Domain-Driven Design** - Clear module boundaries
-- **API Versioning** - Backward-compatible API evolution
-- **Database Relationships** - Proper foreign key constraints
-- **Security Layers** - Module-level access control
 
 ## Quick Start
 
@@ -104,102 +86,46 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 - **Database**: localhost:5432 (internal)
 - **API Documentation**: http://localhost:8080/swagger-ui.html
 
-## Docker Operations
-
-### Service Management
-
-**Start All Services:**
-```bash
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
-```
-
-**Start Specific Service:**
-```bash
-# Start only backend
-docker-compose up backend
-
-# Start only database
-docker-compose up postgres
-
-# Start only frontend
-docker-compose up frontend
-```
-
-**Rebuild Specific Service:**
-```bash
-# Rebuild backend only
-docker-compose up --build backend
-
-# Rebuild frontend only
-docker-compose up --build frontend
-
-# Force rebuild without cache
-docker-compose build --no-cache backend
-```
-
-**Stop Services:**
-```bash
-# Stop all services
-docker-compose down
-
-# Stop specific service
-docker-compose stop backend
-
-# Remove volumes (clean start)
-docker-compose down -v
-```
-
-**View Logs:**
-```bash
-# View all logs
-docker-compose logs
-
-# Follow specific service logs
-docker-compose logs -f backend
-
-# View last 50 lines
-docker-compose logs --tail=50 backend
-```
-
-### Environment Switching
-
-**Development to Production:**
-```bash
-# Stop development
-docker-compose down
-
-# Start production
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
-```
-
-**Production to Development:**
-```bash
-# Stop production
-docker-compose down
-
-# Start development
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
-```
+### Docker Benefits
+- **No local setup required** - Just Docker installed
+- **Kubernetes ready** - Easy cloud deployment
+- **Consistent environment** - Same everywhere
+- **Health checks** - Automatic monitoring
+- **Hot reload** - Development with live updates
 
 ## Documentation
 
-- **[Backend Documentation](backend/README.md)** - API details, setup, architecture, and API versioning
+- **[Backend Documentation](backend/README.md)** - API details, setup, and architecture
 - **[Performance Benchmark](backend/docs/PERFORMANCE_BENCHMARK.md)** - Performance analysis and optimizations
-- **[API Versioning Guide](backend/docs/API_VERSIONING.md)** - API evolution and versioning strategy
 - **[Frontend Documentation](frontend/invoice-builder-react/README.md)** - UI components and setup
+
+## Who This Is For
+
+### Perfect For
+- **Freelancers** - Invoice clients professionally
+- **Small Businesses** - Manage billing without expensive software
+- **Consultants** - Track project-based billing
+- **Finance Teams** - Standardize invoicing processes
+
+### Business Size
+- 1-50 employees
+- 100-10,000 invoices per year
+- Need for simple, reliable invoicing
 
 ## Development
 
 ### Running Tests
 ```bash
 # Backend tests
-docker-compose exec backend ./mvnw test
+cd backend
+./mvnw test
 
 # Performance benchmarks
-docker-compose exec backend ./mvnw test -Dtest=SimplePerformanceTest
+./mvnw test -Dtest=SimplePerformanceTest
 
 # Frontend tests
-docker-compose exec frontend npm test
+cd frontend/invoice-builder-react
+npm test
 ```
 
 ### Code Quality
@@ -224,9 +150,12 @@ See [Performance Benchmark](backend/docs/PERFORMANCE_BENCHMARK.md) for detailed 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests for new functionality
-5. Update documentation
-6. Submit a pull request
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
@@ -236,4 +165,4 @@ See [Performance Benchmark](backend/docs/PERFORMANCE_BENCHMARK.md) for detailed 
 
 ---
 
-**Built for performance, scalability, and maintainability**
+**Built with care for businesses that need reliable, fast invoicing**

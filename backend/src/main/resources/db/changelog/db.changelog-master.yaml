@@ -1,0 +1,246 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: system
+      changes:
+        - createTable:
+            tableName: currencies
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: VARCHAR(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: id
+                  value: c7b5a123-4567-89ab-cdef-0123456789ab
+              - column:
+                  name: currency_code
+                  value: USD
+              - column:
+                  name: currency_name
+                  value: US Dollar
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: id
+                  value: c7b5a124-4567-89ab-cdef-0123456789ac
+              - column:
+                  name: currency_code
+                  value: KES
+              - column:
+                  name: currency_name
+                  value: Kenyan Shilling
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: id
+                  value: c7b5a125-4567-89ab-cdef-0123456789ad
+              - column:
+                  name: currency_code
+                  value: EUR
+              - column:
+                  name: currency_name
+                  value: Euro
+
+  - changeSet:
+      id: 2
+      author: system
+      changes:
+        - createTable:
+            tableName: customers
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_name
+                  type: VARCHAR(255)
+              - column:
+                  name: customer_email
+                  type: VARCHAR(255)
+              - column:
+                  name: customer_phone_number
+                  type: VARCHAR(50)
+              - column:
+                  name: customer_address
+                  type: VARCHAR(500)
+              - column:
+                  name: customer_country
+                  type: VARCHAR(100)
+              - column:
+                  name: customer_created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: system
+      changes:
+        - createTable:
+            tableName: senders
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: phone_number
+                  type: VARCHAR(50)
+              - column:
+                  name: address
+                  type: VARCHAR(500)
+
+  - changeSet:
+      id: 4
+      author: system
+      changes:
+        - createTable:
+            tableName: invoices
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: invoice_number
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: invoice_currency
+                  type: VARCHAR(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invoice_status
+                  type: VARCHAR(20)
+              - column:
+                  name: invoice_customer_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invoice_sender_id
+                  type: UUID
+              - column:
+                  name: invoice_issue_date
+                  type: DATE
+              - column:
+                  name: invoice_due_date
+                  type: DATE
+              - column:
+                  name: invoice_tax_rate
+                  type: DECIMAL(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invoice_discount
+                  type: DECIMAL(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invoice_notes
+                  type: VARCHAR(1000)
+              - column:
+                  name: invoice_subtotal
+                  type: DECIMAL(19,4)
+              - column:
+                  name: invoice_tax_amount
+                  type: DECIMAL(19,4)
+              - column:
+                  name: invoice_total_amount
+                  type: DECIMAL(19,4)
+        - addForeignKeyConstraint:
+            baseTableName: invoices
+            baseColumnNames: invoice_customer_id
+            referencedTableName: customers
+            referencedColumnNames: id
+            constraintName: fk_invoice_customer
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: invoices
+            baseColumnNames: invoice_sender_id
+            referencedTableName: senders
+            referencedColumnNames: id
+            constraintName: fk_invoice_sender
+            onDelete: SET NULL
+
+  - changeSet:
+      id: 5
+      author: system
+      changes:
+        - createTable:
+            tableName: invoice_line_items
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: line_item_invoice_id
+                  type: UUID
+              - column:
+                  name: line_item_description
+                  type: VARCHAR(500)
+              - column:
+                  name: line_item_quantity
+                  type: INTEGER
+              - column:
+                  name: line_item_unit_price
+                  type: DECIMAL(19,4)
+              - column:
+                  name: line_item_total
+                  type: DECIMAL(19,4)
+        - addForeignKeyConstraint:
+            baseTableName: invoice_line_items
+            baseColumnNames: line_item_invoice_id
+            referencedTableName: invoices
+            referencedColumnNames: id
+            constraintName: fk_line_item_invoice
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 6
+      author: system
+      changes:
+        - addUniqueConstraint:
+            tableName: senders
+            columnNames: email
+            constraintName: uk_sender_email
+
+  - include:
+      file: db/changelog/add-indexes.yaml
