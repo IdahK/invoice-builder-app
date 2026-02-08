@@ -1,123 +1,239 @@
 # Invoice Builder App
 
-## Overview
+A modern, full-stack web application for creating, managing, and downloading professional invoices. Built with performance and scalability in mind.
 
-Invoice Builder is an application that helps businesses create, manage, and download professional invoices from their business data. It turns customer records, sender details, and line items into clear, accurate invoices with correct totals, taxes, and payment terms.
+## What It Does
 
-The system is designed to support every-day invoicing needs while remaining extensible for reporting, payments, and future integrations.
+Invoice Builder helps businesses turn their data into professional invoices with just a few clicks. Perfect for freelancers, small businesses, and finance teams who need reliable invoicing without complexity.
 
-## What the App Does
+### Key Features
+- **Create Professional Invoices** - Build invoices with customer data, line items, and automatic calculations
+- **Customer & Sender Management** - Store and reuse customer and business information
+- **Smart Calculations** - Automatic totals, taxes, and discounts
+- **PDF Generation** - Download beautiful, print-ready invoices
+- **Status Tracking** - Monitor invoice status from draft to paid
+- **Performance Optimized** - Lightning-fast data loading with 87% faster queries
 
-### Core Uses
+## Project Structure
 
-- Create and manage customers and senders
-- Build invoices using customer data, sender details, dates, and line items
-- Automatically calculate totals and taxes
-- Generate, preview and download invoice documents (PDF)
-- Track invoice status and payment information
-- Provide data for summaries, reports, and dashboards
+```
+invoice-builder-app/
+├── backend/                    # Spring Boot API server
+│   ├── src/                   # Java source code
+│   ├── docs/                  # Documentation
+│   └── README.md               # Backend setup guide
+├── frontend/                  # React web application
+│   └── invoice-builder-react/ # React + Vite setup
+├── docker-compose.yml           # Main Docker configuration
+├── docker-compose.dev.yml       # Development overrides
+├── docker-compose.prod.yml      # Production overrides
+├── .env.example               # Environment variables template
+└── README.md                # This file
+```
 
-## Who This App Is For
+## Tech Stack
 
-- Small and medium-sized businesses that need a simple way to generate and manage invoices
-- Freelancers and consultants who invoice clients regularly
-- Internal finance or operations teams that need consistent, reliable invoice records
+### Backend
+- **Framework**: Spring Boot 4.0.2
+- **Language**: Java 21
+- **Database**: PostgreSQL 15
+- **Build Tool**: Maven
+- **ORM**: Spring Data JPA with Hibernate
+- **Migration**: Liquibase
+- **Testing**: JUnit 5, Spring Boot Test
 
-## Business Requirements
+### Frontend
+- **Framework**: React 19.2.0
+- **Build Tool**: Vite 7.2.4
+- **Language**: JavaScript/TypeScript
+- **Styling**: CSS3 (planned: Tailwind CSS)
 
-- Create and manage Customers and Senders
-- Create Invoices using:
-  - Invoice and date details
-  - Existing customer and sender data
-  - One or more line items
-- Calculate invoice totals accurately
-- Generate and download invoice documents
-- Support reporting and summaries over invoices and payments
+### DevOps & Infrastructure
+- **Containerization**: Docker & Docker Compose
+- **Database**: PostgreSQL 15 in Docker
+- **Version Control**: Git
 
-## Architecture Overview
-The application follows a Modular Monolith architecture. All modules are deployed as a single application, but each module has clear boundaries and responsibilities.
+## Application Modules
 
-### Modules
+### Core Business Modules
+- **Invoice Module** - Invoice creation, management, and PDF generation
+- **Customer Module** - Customer data management and relationships
+- **User Module** - User authentication, roles, and access control
+- **Payment Module** - Payment tracking, status, and processing
+- **Reports Module** - Analytics, summaries, and dashboard metrics
 
-- **Invoice Module**
+### Module Integration
+- **Domain-Driven Design** - Clear module boundaries
+- **API Versioning** - Backward-compatible API evolution
+- **Database Relationships** - Proper foreign key constraints
+- **Security Layers** - Module-level access control
 
-    Handles invoices, line items, senders, and customers
+## Quick Start
 
-- **Users Module**
+### Prerequisites
+- Docker & Docker Compose
+- Git
 
-    Manages user accounts, roles, and authentication
+### 1. Clone & Setup
+```bash
+git clone <repository-url>
+cd invoice-builder-app
+```
 
-- **Payments Module**
+### 2. Environment Configuration
+```bash
+cp .env.example .env
+# Edit .env with your secure credentials
+```
 
-    Tracks payment records, payment status, and payment methods
+### 3. Start Application
 
-- **Reports Module**
+**Development Environment:**
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
 
-    Generates summaries, reports, and dashboard metrics
+**Production Environment:**
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
 
-## Database Design
+### 4. Access Application
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8080/api/v1
+- **Database**: localhost:5432 (internal)
+- **API Documentation**: http://localhost:8080/swagger-ui.html
 
-The system uses a relational database to ensure data consistency and integrity.
+## Docker Operations
 
-Core tables include:
+### Service Management
 
-- senders
-- customers
-- invoices
-- invoice_line_items
-- payments
-- users
+**Start All Services:**
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
 
-Each module owns its data and is responsible for how it is stored and accessed.
+**Start Specific Service:**
+```bash
+# Start only backend
+docker-compose up backend
 
-## Domain Model
+# Start only database
+docker-compose up postgres
 
-The application is designed around clear domain concepts that reflect real-world business meaning.
+# Start only frontend
+docker-compose up frontend
+```
 
-#### Invoice Domain
-Represents the core invoicing logic of the system.
+**Rebuild Specific Service:**
+```bash
+# Rebuild backend only
+docker-compose up --build backend
 
-Key Concepts:
-- Invoice: A business document issued to a customer by a sender
-- InvoiceLineItem: An individual billed item on an invoice
-- InvoiceStatus: Draft, Issued, Paid, Overdue, Cancelled
+# Rebuild frontend only
+docker-compose up --build frontend
 
-Responsibilities:
-- Hold invoice details and dates
-- Calculate totals from line items
-- Enforce invoice lifecycle rules
+# Force rebuild without cache
+docker-compose build --no-cache backend
+```
 
-#### Payments Domain
-Represents how invoices are paid and tracked.
+**Stop Services:**
+```bash
+# Stop all services
+docker-compose down
 
-Key Concepts:
-- Payment: A record of money received against an invoice
-- PaymentMethod: Card, bank transfer, cash, etc.
-- PaymentStatus: Pending, Completed, Failed
+# Stop specific service
+docker-compose stop backend
 
-Responsibilities:
-- Track payments linked to invoices
-- Reflect payment state and history
+# Remove volumes (clean start)
+docker-compose down -v
+```
 
-#### Users Domain
-Represents system users and access control.
+**View Logs:**
+```bash
+# View all logs
+docker-compose logs
 
-Key Concepts:
-- UserAccount: A registered user of the system
-- Role: Defines permissions and access levels
+# Follow specific service logs
+docker-compose logs -f backend
 
-Responsibilities:
-- Manage user identity
-- Control access to application features
+# View last 50 lines
+docker-compose logs --tail=50 backend
+```
 
-#### Reports Domain
-Represents analytical views derived from invoices and payments.
+### Environment Switching
 
-Key Concepts:
-- InvoiceSummary: Aggregated invoice data
-- PaymentSummary: Aggregated payment data
-- DashboardMetrics: High-level business indicators
+**Development to Production:**
+```bash
+# Stop development
+docker-compose down
 
-Responsibilities:
-- Provide read-only views and summaries
-- Support dashboards and reporting use cases
+# Start production
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+**Production to Development:**
+```bash
+# Stop production
+docker-compose down
+
+# Start development
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
+
+## Documentation
+
+- **[Backend Documentation](backend/README.md)** - API details, setup, architecture, and API versioning
+- **[Performance Benchmark](backend/docs/PERFORMANCE_BENCHMARK.md)** - Performance analysis and optimizations
+- **[API Versioning Guide](backend/docs/API_VERSIONING.md)** - API evolution and versioning strategy
+- **[Frontend Documentation](frontend/invoice-builder-react/README.md)** - UI components and setup
+
+## Development
+
+### Running Tests
+```bash
+# Backend tests
+docker-compose exec backend ./mvnw test
+
+# Performance benchmarks
+docker-compose exec backend ./mvnw test -Dtest=SimplePerformanceTest
+
+# Frontend tests
+docker-compose exec frontend npm test
+```
+
+### Code Quality
+- **Backend**: Lombok for clean code, Spring Boot best practices
+- **Frontend**: ESLint for code quality
+- **Performance**: Optimized database queries with 87% faster loading
+
+## Performance Highlights
+
+Our performance optimizations deliver significant improvements:
+
+| Feature | Improvement | Impact |
+|---------|-------------|---------|
+| Invoice List Loading | **87% faster** | Better user experience |
+| Memory Usage | **59% reduction** | Scalable architecture |
+| Database Queries | **Optimized projections** | Faster response times |
+
+See [Performance Benchmark](backend/docs/PERFORMANCE_BENCHMARK.md) for detailed analysis.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Update documentation
+6. Submit a pull request
+
+## Support
+
+- **Documentation**: Check README files in each module
+- **Issues**: Report bugs via GitHub Issues
+- **Performance**: See performance benchmark documentation
+
+---
+
+**Built for performance, scalability, and maintainability**
