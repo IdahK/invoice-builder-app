@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-oauth-account-table
+      author: system
+      changes:
+        - createTable:
+            tableName: oauth_accounts
+            columns:
+              - column:
+                  name: oauth_account_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: oauth_provider
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: oauth_provider_user_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: oauth_user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: oauth_created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: oauth_accounts
+            baseColumnNames: oauth_user_id
+            referencedTableName: user
+            referencedColumnNames: user_id
+            constraintName: fk_oauth_account_user
+            onDelete: CASCADE
+        - addUniqueConstraint:
+            tableName: oauth_accounts
+            columnNames: oauth_provider, oauth_provider_user_id
+            constraintName: uk_oauth_provider_user

@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-default-roles
+      author: system
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role_id
+                  value: 550e8400-e29b-41d4-a716-446655440001
+              - column:
+                  name: role_name
+                  value: OWNER
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role_id
+                  value: 550e8400-e29b-41d4-a716-446655440002
+              - column:
+                  name: role_name
+                  value: ADMIN
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role_id
+                  value: 550e8400-e29b-41d4-a716-446655440003
+              - column:
+                  name: role_name
+                  value: USER

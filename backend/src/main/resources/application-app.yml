@@ -1,0 +1,8 @@
+app:
+  frontend:
+    url: ${FRONTEND_URL:http://localhost:3000}
+  roles:
+    default:
+      owner: OWNER
+      admin: ADMIN
+      user: USER
