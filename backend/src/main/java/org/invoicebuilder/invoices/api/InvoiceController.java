@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.invoicebuilder.api.BaseApiController;
+import org.invoicebuilder.common.api_version.ApiVersionController;
 import org.invoicebuilder.invoices.dto.request.invoice.CreateInvoiceRequest;
 import org.invoicebuilder.invoices.dto.response.invoice.InvoiceListResponse;
 import org.invoicebuilder.invoices.dto.response.invoice.InvoiceLineItemResponse;
@@ -28,7 +28,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/invoices")
 @RequiredArgsConstructor
-public class InvoiceController extends BaseApiController {
+public class InvoiceController extends ApiVersionController {
     private final InvoiceService invoiceService;
 
     @Operation(summary = "Create a new invoice", description = "Creates a new invoice with line items and calculates totals")

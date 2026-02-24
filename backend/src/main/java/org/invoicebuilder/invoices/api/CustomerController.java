@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.invoicebuilder.api.BaseApiController;
+import org.invoicebuilder.common.api_version.ApiVersionController;
 import org.invoicebuilder.invoices.dto.request.customer.CreateCustomerRequest;
 import org.invoicebuilder.invoices.dto.response.customer.CustomerSummaryResponse;
 import org.invoicebuilder.invoices.service.CustomerService;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
-public class CustomerController extends BaseApiController {
+public class CustomerController extends ApiVersionController {
     private final CustomerService customerService;
 
     @Operation(summary = "Create a new customer", description = "Creates a new customer with the provided details")

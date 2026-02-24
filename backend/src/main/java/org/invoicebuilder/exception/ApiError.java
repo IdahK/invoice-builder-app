@@ -18,6 +18,6 @@ public class ApiError {
 
     private List<String> errors;
 
-    private String developerMessage;
+//    private String developerMessage;
 
 }

@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.invoicebuilder.api.BaseApiController;
+import org.invoicebuilder.common.api_version.ApiVersionController;
 import org.invoicebuilder.invoices.dto.request.sender.CreateSenderRequest;
 import org.invoicebuilder.invoices.dto.response.sender.SenderSummaryResponse;
 import org.invoicebuilder.invoices.service.SenderService;
@@ -26,7 +26,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/senders")
 @RequiredArgsConstructor
-public class SenderController extends BaseApiController {
+public class SenderController extends ApiVersionController {
     private final SenderService senderService;
 
     @Operation(summary = "Create a new sender", description = "Creates a new sender with the provided details")

@@ -1,4 +1,4 @@
-package org.invoicebuilder.api;
+package org.invoicebuilder.common.api_version;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,9 +13,9 @@ import static org.invoicebuilder.util.ApiVersionUtils.SUPPORTED_VERSIONS;
 import static org.invoicebuilder.util.ApiVersionUtils.*;
 
 /**
- * Base controller that provides common API versioning functionality
+ * API controller that provides versioning functionality
  */
-public abstract class BaseApiController {
+public abstract class ApiVersionController {
 
     @Operation(summary = "Get API version information", description = "Returns information about the current API version")
     @ApiResponses(value = {

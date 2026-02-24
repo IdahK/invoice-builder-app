@@ -1,7 +1,7 @@
 package org.invoicebuilder.invoices.service;
 
 import lombok.RequiredArgsConstructor;
-import org.invoicebuilder.exception.ResourceNotFoundException;
+import org.invoicebuilder.exception.common.ResourceNotFoundException;
 import org.invoicebuilder.invoices.domain.Sender;
 import org.invoicebuilder.invoices.dto.request.sender.CreateSenderRequest;
 import org.invoicebuilder.invoices.dto.response.sender.SenderSummaryResponse;

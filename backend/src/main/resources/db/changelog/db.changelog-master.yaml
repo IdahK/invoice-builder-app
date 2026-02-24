@@ -244,3 +244,30 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/add-indexes.yaml
+
+  - include:
+      file: db/changelog/create-account-table.yaml
+
+  - include:
+      file: db/changelog/create-role-table.yaml
+
+  - include:
+      file: db/changelog/insert-default-roles.yaml
+
+  - include:
+      file: db/changelog/create-user-table.yaml
+
+  - include:
+      file: db/changelog/create-user-role-table.yaml
+
+  - include:
+      file: db/changelog/create-oauth-account-table.yaml
+
+  - include:
+      file: db/changelog/create-refresh-token-table.yaml
+
+  - include:
+      file: db/changelog/create-email-verification-token-table.yaml
+
+  - include:
+      file: db/changelog/add-user-account-foreign-keys-to-invoice.yaml

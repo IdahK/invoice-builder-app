@@ -111,7 +111,7 @@ If an unsupported version is requested:
   "errorType": "ERROR",
   "message": "API version 'v2' is not supported. Supported versions: v1",
   "errors": ["API version not supported"],
-  "developerMessage": "org.invoicebuilder.exception.UnsupportedApiVersionException: API version 'v2' is not supported. Supported versions: v1"
+  "developerMessage": "org.invoicebuilder.exception.common.UnsupportedApiVersionException: API version 'v2' is not supported. Supported versions: v1"
 }
 ```
 

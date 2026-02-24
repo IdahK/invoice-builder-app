@@ -2,6 +2,8 @@ package org.invoicebuilder.invoices.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.invoicebuilder.users.domain.User;
+import org.invoicebuilder.users.domain.Account;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -37,6 +39,14 @@ public class Invoice {
     @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_sender_id")
     private Sender sender;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "account_id", nullable = false, referencedColumnName = "account_id")
+    private Account account;
 
     @Column(name = "invoice_issue_date")
     private LocalDate issueDate;

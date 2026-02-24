@@ -56,8 +56,6 @@ services:
     ports:
       - "${SERVER_PORT:-8080}:8080"
     volumes:
-      - ./backend:/app
-      - /app/target  # Exclude target from volume mount
       - uploads_data:/app/uploads
     depends_on:
       postgres:

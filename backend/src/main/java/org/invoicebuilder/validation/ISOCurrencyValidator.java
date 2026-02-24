@@ -1,4 +1,4 @@
-package org.invoicebuilder.common.validation;
+package org.invoicebuilder.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -19,7 +19,7 @@ public class ISOCurrencyValidator implements ConstraintValidator<ISOCurrency, St
     @Override
     public boolean isValid(String currencyCode, ConstraintValidatorContext context) {
         if (currencyCode == null) {
-            return true; // Let @NotNull handle null validation
+            return true; // @NotNull handles null validation
         }
         
         boolean isValid = VALID_CURRENCIES.contains(currencyCode.toUpperCase());

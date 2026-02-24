@@ -1,4 +1,4 @@
-package org.invoicebuilder.exception;
+package org.invoicebuilder.exception.common;
 
 import lombok.Getter;
 
@@ -14,4 +14,5 @@ public class ResourceNotFoundException extends RuntimeException {
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
     }
+
 }

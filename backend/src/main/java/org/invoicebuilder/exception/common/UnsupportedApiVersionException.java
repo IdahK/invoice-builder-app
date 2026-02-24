@@ -1,4 +1,4 @@
-package org.invoicebuilder.exception;
+package org.invoicebuilder.exception.common;
 
 import lombok.Getter;
 

@@ -1,10 +1,9 @@
 package org.invoicebuilder.invoices.service;
 
 import lombok.RequiredArgsConstructor;
-import org.invoicebuilder.exception.ResourceNotFoundException;
+import org.invoicebuilder.exception.common.ResourceNotFoundException;
 import org.invoicebuilder.invoices.domain.Invoice;
 import org.invoicebuilder.invoices.domain.InvoiceLineItem;
-import org.invoicebuilder.invoices.domain.InvoiceStatus;
 import org.invoicebuilder.invoices.dto.request.invoice.CreateInvoiceRequest;
 import org.invoicebuilder.invoices.dto.request.invoice.InvoiceLineItemRequest;
 import org.invoicebuilder.invoices.dto.response.invoice.InvoiceListResponse;
