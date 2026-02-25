@@ -1,7 +1,7 @@
 package org.invoicebuilder.common.currencies;
 
 import lombok.RequiredArgsConstructor;
-import org.invoicebuilder.exception.ResourceNotFoundException;
+import org.invoicebuilder.exception.common.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

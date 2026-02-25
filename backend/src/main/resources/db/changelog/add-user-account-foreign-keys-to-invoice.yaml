@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-user-account-foreign-keys-to-invoice
+      author: system
+      changes:
+        - addColumn:
+            tableName: invoices
+            columns:
+              - column:
+                  name: user_id
+                  type: UUID
+              - column:
+                  name: account_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseTableName: invoices
+            baseColumnNames: user_id
+            referencedTableName: user
+            referencedColumnNames: user_id
+            constraintName: fk_invoice_user
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: invoices
+            baseColumnNames: account_id
+            referencedTableName: accounts
+            referencedColumnNames: account_id
+            constraintName: fk_invoice_account
+            onDelete: RESTRICT
+        - createIndex:
+            tableName: invoices
+            indexName: idx_invoice_user_id
+            columns:
+              - column:
+                  name: user_id
+        - createIndex:
+            tableName: invoices
+            indexName: idx_invoice_account_id
+            columns:
+              - column:
+                  name: account_id

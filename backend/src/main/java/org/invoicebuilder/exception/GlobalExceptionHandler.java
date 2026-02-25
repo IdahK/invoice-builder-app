@@ -1,5 +1,7 @@
 package org.invoicebuilder.exception;
 
+import org.invoicebuilder.exception.common.ResourceNotFoundException;
+import org.invoicebuilder.exception.common.UnsupportedApiVersionException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,9 +39,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 ErrorType.ERROR,
-                "Validation failed for request body",
-                errors,
-                ex.toString()
+                "Validation failed",
+                errors
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -64,9 +65,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 ErrorType.ERROR,
-                ex.getLocalizedMessage(),
-                errors,
-                ex.toString()
+                "Validation failed",
+                errors
         );
 
         if (headers != null) {
@@ -81,9 +81,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.NOT_FOUND,
                 ErrorType.ERROR,
-                ex.getMessage(),
-                Collections.singletonList(ex.getMessage()),
-                ex.toString()
+                "Resource not found",
+                Collections.singletonList("The requested resource could not be found")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -97,9 +96,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.NOT_FOUND,
                 ErrorType.ERROR,
-                "Entity not found",
-                Collections.singletonList(ex.getMessage()),
-                ex.toString()
+                "Resource not found",
+                Collections.singletonList("The requested resource could not be found")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -117,9 +115,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 ErrorType.ERROR,
-                "Constraint violation",
-                errors,
-                ex.toString()
+                "Validation failed",
+                errors
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -133,9 +130,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.CONFLICT,
                 ErrorType.ERROR,
-                "Data integrity violation",
-                Collections.singletonList("Database constraint violation occurred"),
-                ex.toString()
+                "Data conflict",
+                Collections.singletonList("The request could not be completed due to a data conflict")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -149,9 +145,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 ErrorType.ERROR,
-                "Malformed JSON request",
-                Collections.singletonList("Request body is not valid JSON or contains syntax errors"),
-                ex.toString()
+                "Invalid request format",
+                Collections.singletonList("Request body must be valid JSON. Please check your request syntax and try again.")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -168,9 +163,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 ErrorType.ERROR,
-                "Type mismatch",
-                Collections.singletonList(error),
-                ex.toString()
+                "Invalid parameter type",
+                Collections.singletonList(error + ". Please check the parameter type and try again.")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -186,9 +180,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 ErrorType.ERROR,
-                "Missing request parameter",
-                Collections.singletonList(error),
-                ex.toString()
+                "Missing required parameter",
+                Collections.singletonList(error + ". Please include all required parameters.")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -210,8 +203,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.METHOD_NOT_ALLOWED,
                 ErrorType.ERROR,
                 "Method not allowed",
-                Collections.singletonList(error),
-                ex.toString()
+                Collections.singletonList(error + ". Please use a supported HTTP method.")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -232,9 +224,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.UNSUPPORTED_MEDIA_TYPE,
                 ErrorType.ERROR,
-                "Unsupported media type",
-                Collections.singletonList(error),
-                ex.toString()
+                "Unsupported content type",
+                Collections.singletonList(error + ". Please use a supported content type.")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -251,8 +242,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND,
                 ErrorType.ERROR,
                 "Endpoint not found",
-                Collections.singletonList(error),
-                ex.toString()
+                Collections.singletonList("The requested endpoint does not exist. Please check the URL and try again.")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -266,9 +256,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.NOT_FOUND,
                 ErrorType.ERROR,
-                ex.getMessage(),
-                Collections.singletonList("API version not supported"),
-                ex.toString()
+                "API version not supported",
+                Collections.singletonList("This API version is not supported. Please use a supported version.")
         );
 
         HttpHeaders headers = new HttpHeaders();
@@ -283,9 +272,8 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 ErrorType.ERROR,
-                "An unexpected error occurred",
-                Collections.singletonList("Internal server error - please contact support"),
-                ex.toString()
+                "Server error",
+                Collections.singletonList("An internal server error occurred. Please try again later or contact support.")
         );
 
         HttpHeaders headers = new HttpHeaders();

@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-email-verification-token-table
+      author: system
+      changes:
+        - createTable:
+            tableName: email_verification_tokens
+            columns:
+              - column:
+                  name: ev_token_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ev_token_user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ev_token_hash
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: ev_expires_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ev_token_used
+                  type: BOOLEAN
+                  defaultValue: "false"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ev_token_created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: email_verification_tokens
+            baseColumnNames: ev_token_user_id
+            referencedTableName: user
+            referencedColumnNames: user_id
+            constraintName: fk_email_verification_token_user
+            onDelete: CASCADE

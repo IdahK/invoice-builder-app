@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import org.invoicebuilder.common.validation.DateRange;
-import org.invoicebuilder.common.validation.ISOCurrency;
+import org.invoicebuilder.validation.DateRange;
+import org.invoicebuilder.validation.ISOCurrency;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

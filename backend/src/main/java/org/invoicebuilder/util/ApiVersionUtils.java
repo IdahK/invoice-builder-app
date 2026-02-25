@@ -1,6 +1,6 @@
 package org.invoicebuilder.util;
 
-import org.invoicebuilder.exception.UnsupportedApiVersionException;
+import org.invoicebuilder.exception.common.UnsupportedApiVersionException;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: system
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_display_name
+                  type: VARCHAR(100)
+              - column:
+                  name: user_password_hash
+                  type: VARCHAR(255)
+              - column:
+                  name: user_email_verified
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_status
+                  type: VARCHAR(20)
+                  defaultValue: ACTIVE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_account_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: user
+            baseColumnNames: user_account_id
+            referencedTableName: accounts
+            referencedColumnNames: account_id
+            constraintName: fk_user_account
+            onDelete: RESTRICT
+        - createIndex:
+            tableName: user
+            indexName: idx_user_email
+            columns:
+              - column:
+                  name: user_email
