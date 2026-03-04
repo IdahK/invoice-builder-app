@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-default-roles
+      id: insert-owner-role
       author: system
       changes:
         - insert:
@@ -12,6 +12,10 @@ databaseChangeLog:
               - column:
                   name: role_name
                   value: OWNER
+  - changeSet:
+      id: insert-admin-role
+      author: system
+      changes:
         - insert:
             tableName: roles
             columns:
@@ -21,6 +25,10 @@ databaseChangeLog:
               - column:
                   name: role_name
                   value: ADMIN
+  - changeSet:
+      id: insert-user-role
+      author: system
+      changes:
         - insert:
             tableName: roles
             columns:
