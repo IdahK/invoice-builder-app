@@ -7,9 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.invoicebuilder.security.domain.EmailVerificationToken;
-import org.invoicebuilder.security.domain.OAuthAccount;
-import org.invoicebuilder.security.domain.RefreshToken;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -51,24 +48,6 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_account_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_account"))
     private Account account;
-    
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_role_user")),
-        inverseJoinColumns = @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "fk_user_role_role"))
-    )
-    private Set<Role> roles = new HashSet<>();
-    
-    // Proper setter for roles to handle lazy loading
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles != null ? roles : new HashSet<>();
-    }
-    
-    // Proper getter for roles to handle lazy loading
-    public Set<Role> getRoles() {
-        return roles != null ? roles : new HashSet<>();
-    }
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OAuthAccount> oauthAccounts = new HashSet<>();

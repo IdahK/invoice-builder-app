@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -24,7 +22,4 @@ public class Role {
     
     @Column(name = "role_name", nullable = false, unique = true)
     private String roleName;
-    
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
 }

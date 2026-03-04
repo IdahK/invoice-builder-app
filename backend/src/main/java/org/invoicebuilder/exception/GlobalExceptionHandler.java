@@ -273,7 +273,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 ErrorType.ERROR,
                 "Server error",
-                Collections.singletonList("An internal server error occurred. Please try again later or contact support.")
+                Collections.singletonList(ex.getMessage())
         );
 
         HttpHeaders headers = new HttpHeaders();
