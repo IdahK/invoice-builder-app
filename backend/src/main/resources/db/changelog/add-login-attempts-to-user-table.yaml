@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-login-attempts-to-user-table
+      author: system
+      changes:
+        - addColumn:
+            tableName: user
+            columns:
+              - column:
+                  name: user_login_attempts
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                  defaultValue: 0

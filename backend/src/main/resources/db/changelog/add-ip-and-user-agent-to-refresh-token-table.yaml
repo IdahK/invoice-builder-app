@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-ip-and-user-agent-to-refresh-token-table
+      author: invoice-builder
+      changes:
+        - addColumn:
+            tableName: refresh_tokens
+            columns:
+              - column:
+                  name: refresh_token_ip
+                  type: varchar(45)
+                  remarks: IP address of the client that created the refresh token
+              - column:
+                  name: refresh_token_user_agent
+                  type: varchar(500)
+                  remarks: User agent string of the client that created the refresh token

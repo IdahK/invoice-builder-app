@@ -3,7 +3,6 @@ package org.invoicebuilder.users.dto.auth;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import org.invoicebuilder.users.dto.user.UserSummaryResponse;
 
 /**
  * Authentication response containing tokens and user information.
@@ -26,11 +25,11 @@ public record AuthResponse(
     
     @Schema(description = "Access token expiration time in seconds (expires_in)", example = "900", name = "expires_in")
     @JsonProperty("expires_in")
-    Long expiresIn,
+    Long expiresIn
     
-    @Schema(description = "User summary information (user)", name = "user")
-    @JsonProperty("user")
-    UserSummaryResponse user
+//    @Schema(description = "User summary information (user)", name = "user")
+//    @JsonProperty("user")
+//    UserSummaryResponse user
 ) {
     /**
      * Compact constructor to set default token type.
@@ -48,10 +47,9 @@ public record AuthResponse(
      * @param accessToken JWT access token
      * @param refreshToken Refresh token
      * @param expiresIn Token expiration time in seconds
-     * @param user User summary information
      * @return AuthResponse DTO
      */
-    public static AuthResponse create(String accessToken, String refreshToken, Long expiresIn, UserSummaryResponse user) {
-        return new AuthResponse(accessToken, refreshToken, "Bearer", expiresIn, user);
+    public static AuthResponse create(String accessToken, String refreshToken, Long expiresIn) {
+        return new AuthResponse(accessToken, refreshToken, "Bearer", expiresIn);
     }
 }

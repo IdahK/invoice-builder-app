@@ -2,15 +2,19 @@ package org.invoicebuilder.users.service;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.invoicebuilder.config.TokenProperties;
 import org.invoicebuilder.users.domain.Account;
+import org.invoicebuilder.users.domain.SecurityUser;
 import org.invoicebuilder.users.domain.User;
-import org.invoicebuilder.users.dto.auth.PasswordChangeRequest;
-import org.invoicebuilder.users.dto.auth.PasswordChangeResponse;
+import org.invoicebuilder.users.dto.auth.*;
 import org.invoicebuilder.users.dto.user.CreateUserRequest;
-import org.invoicebuilder.users.dto.auth.RegisterRequest;
-import org.invoicebuilder.users.dto.auth.RegistrationResponse;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +24,10 @@ public class AuthService {
     private final UserService userService;
     private final AccountService accountService;
     private final UserRoleService userRoleService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
+    private final RefreshTokenService refreshTokenService;
+    private final TokenProperties tokenProperties;
 
     @Transactional
     public RegistrationResponse registerEmailUser(@NotNull RegisterRequest request) {
@@ -61,6 +69,22 @@ public class AuthService {
                 .displayName(user.getUserDisplayName())
                 .message("Registration successful. Please check your email to verify your account.")
                 .build();
+    }
+
+    public AuthResponse login(LoginRequest loginRequest){
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.email(),
+                        loginRequest.password()
+                )
+        );
+
+        SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+        User user =  Objects.requireNonNull(securityUser).getUser();
+
+        String token = tokenService.generateToken(authentication);
+        String refreshToken = refreshTokenService.createToken(user);
+        return AuthResponse.create(token, refreshToken, tokenProperties.getAccessTokenTtl().getSeconds());
     }
 
     public PasswordChangeResponse changePassword(@NotNull PasswordChangeRequest request) {

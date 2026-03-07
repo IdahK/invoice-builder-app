@@ -2,7 +2,7 @@ spring:
   application:
     name: invoice-builder
   profiles:
-    include: app, api, mail
+    include: app, api, mail, security
   docker:
     compose:
       enabled: false
