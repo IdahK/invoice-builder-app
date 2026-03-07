@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.invoicebuilder.users.dto.auth.PasswordChangeRequest;
-import org.invoicebuilder.users.dto.auth.PasswordChangeResponse;
-import org.invoicebuilder.users.dto.auth.RegisterRequest;
-import org.invoicebuilder.users.dto.auth.RegistrationResponse;
+import org.invoicebuilder.users.dto.auth.*;
 import org.invoicebuilder.users.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +61,46 @@ public class AuthController {
         RegistrationResponse response = authService.registerEmailUser(registerRequest);
         log.info("User registered successfully: {}", response.email());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 
+    @PostMapping("/login")
+    @Operation(
+        summary = "Authenticate user and return JWT token",
+        description = "Authenticates a user with email and password credentials and returns a JWT access token for API access",
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "User login credentials",
+            required = true,
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = LoginRequest.class)
+            )
+        ),
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Authentication successful",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = AuthResponse.class)
+                )
+            ),
+            @ApiResponse(
+                responseCode = "401",
+                description = "Invalid credentials - email or password is incorrect"
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "Invalid request format or validation errors"
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error during authentication"
+            )
+        }
+    )
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest){
+        AuthResponse authResponse = authService.login(loginRequest);
+        return ResponseEntity.ok(authResponse);
     }
 
     @PostMapping("/change-password")

@@ -1,19 +1,26 @@
-security:
-  jwt:
-    secret-key: ${JWT_SECRET:3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b}
-    expiration-time: 3600000
-    access-token-ttl: 15m
-    refresh-token-ttl: 7d
-  tokens:
-    email-verification-ttl: 24h
-    password-reset-ttl: 1h
+spring:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET:3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b}
+      expiration-time: 3600000
+      access-token-ttl: 15m
+      refresh-token-ttl: 7d
+    tokens:
+      email-verification-ttl: 24h
+      password-reset-ttl: 1h
+      refresh-token-ttl: 7d
+      access-token-ttl: 30m
 
-oauth:
-  google:
-    client-id: ${GOOGLE_CLIENT_ID:your-google-client-id}
-    client-secret: ${GOOGLE_CLIENT_SECRET:your-google-client-secret}
-    scope: openid,email,profile
-  microsoft:
-    client-id: ${MS_CLIENT_ID:your-microsoft-client-id}
-    client-secret: ${MS_CLIENT_SECRET:your-microsoft-client-secret}
-    scope: openid,email,profile
+  oauth:
+    google:
+      client-id: ${GOOGLE_CLIENT_ID:your-google-client-id}
+      client-secret: ${GOOGLE_CLIENT_SECRET:your-google-client-secret}
+      scope: openid,email,profile
+    microsoft:
+      client-id: ${MS_CLIENT_ID:your-microsoft-client-id}
+      client-secret: ${MS_CLIENT_SECRET:your-microsoft-client-secret}
+      scope: openid,email,profile
+
+rsa:
+  private-key:  classpath:certs/private.pem
+  public-key: classpath:certs/public.pem

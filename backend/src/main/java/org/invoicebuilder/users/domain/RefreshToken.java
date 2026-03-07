@@ -39,6 +39,12 @@ public class RefreshToken {
     @Builder.Default
     private Boolean revoked = false;
     
+    @Column(name = "refresh_token_ip")
+    private String tokenIp;
+    
+    @Column(name = "refresh_token_user_agent")
+    private String tokenUserAgent;
+    
     @CreationTimestamp
     @Column(name = "refresh_token_created_at", nullable = false, updatable = false)
     private Instant createdAt;

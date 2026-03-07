@@ -45,6 +45,10 @@ public class User {
     @Column(name = "user_status", nullable = false)
     private UserStatus userStatus = UserStatus.ACTIVE;
     
+    @Column(name = "user_login_attempts", nullable = false)
+    @Builder.Default
+    private Integer loginAttempts = 0;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_account_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_account"))
     private Account account;
