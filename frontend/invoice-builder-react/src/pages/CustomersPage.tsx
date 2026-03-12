@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Plus, Eye, Pencil, Trash2, Users } from 'lucide-react';
 import { customerService } from '../services/mockApi';
 import type { Customer } from '../types';
-import { useAppStore } from '../store/appStore';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import TextArea from '../components/ui/TextArea';
@@ -32,7 +31,6 @@ const initialFormData: CustomerFormData = {
 };
 
 export default function CustomersPage() {
-  const darkMode = useAppStore((state) => state.darkMode);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -137,10 +135,10 @@ export default function CustomersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Customers
           </h1>
-          <p className={`text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+          <p className="text-sm mt-1 text-gray-500 dark:text-gray-400">
             Manage your customer database
           </p>
         </div>
@@ -151,7 +149,7 @@ export default function CustomersPage() {
       </div>
 
       {/* Search */}
-      <div className={`p-4 rounded-xl mb-6 ${darkMode ? 'bg-slate-800' : 'bg-white'} shadow-sm`}>
+      <div className="p-4 rounded-xl mb-6 bg-white dark:bg-slate-800 shadow-sm">
         <SearchInput
           value={search}
           onChange={(value) => {
@@ -163,7 +161,7 @@ export default function CustomersPage() {
       </div>
 
       {/* Table */}
-      <div className={`rounded-xl overflow-hidden ${darkMode ? 'bg-slate-800' : 'bg-white'} shadow-sm`}>
+      <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-sm">
         {loading ? (
           <LoadingSpinner />
         ) : customers.length === 0 ? (
@@ -172,53 +170,53 @@ export default function CustomersPage() {
             description={search ? "Try adjusting your search" : "Add your first customer to get started"}
             actionLabel={!search ? "Add Customer" : undefined}
             onAction={!search ? () => handleOpenModal('create') : undefined}
-            icon={<Users className={`w-8 h-8 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />}
+            icon={<Users className="w-8 h-8 text-gray-500 dark:text-gray-400" />}
           />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full" data-testid="customers-table">
               <thead>
-                <tr className={darkMode ? 'bg-slate-700' : 'bg-gray-50'}>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                <tr className="bg-gray-50 dark:bg-slate-700">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Company
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Contact
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Email
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Phone
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Created
                   </th>
-                  <th className={`px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className={`divide-y ${darkMode ? 'divide-slate-700' : 'divide-gray-100'}`}>
+              <tbody className="divide-y divide-gray-100 dark:divide-slate-700">
                 {customers.map((customer) => (
                   <tr
                     key={customer.id}
                     className="table-row-hover transition-colors"
                     data-testid={`customer-row-${customer.id}`}
                   >
-                    <td className={`px-6 py-4 ${darkMode ? 'text-white' : 'text-gray-900'} font-medium`}>
+                    <td className="px-6 py-4 text-gray-900 dark:text-white font-medium">
                       {customer.name}
                     </td>
-                    <td className={`px-6 py-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                       {customer.contactPerson}
                     </td>
-                    <td className={`px-6 py-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                       {customer.email}
                     </td>
-                    <td className={`px-6 py-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                       {customer.phone}
                     </td>
-                    <td className={`px-6 py-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                       {formatDate(customer.createdAt)}
                     </td>
                     <td className="px-6 py-4">

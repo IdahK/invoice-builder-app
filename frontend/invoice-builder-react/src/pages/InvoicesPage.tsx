@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Eye, Pencil, Trash2, Download, Filter } from 'lucide-react';
-import { invoiceService, getCustomerById, getSenderById } from '../services/mockApi';
+import { invoiceService, getCustomerById } from '../services/mockApi';
 import { downloadInvoicePDF } from '../services/pdfService';
 import type { Invoice, InvoiceStatus } from '../types';
-import { useAppStore } from '../store/appStore';
 import Button from '../components/ui/Button';
 import SearchInput from '../components/ui/SearchInput';
 import StatusBadge from '../components/ui/StatusBadge';
@@ -26,7 +25,6 @@ const statusOptions: { value: InvoiceStatus | ''; label: string }[] = [
 
 export default function InvoicesPage() {
   const navigate = useNavigate();
-  const darkMode = useAppStore((state) => state.darkMode);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -106,10 +104,10 @@ export default function InvoicesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
             Invoices
           </h1>
-          <p className={`text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+          <p className="text-sm mt-1 text-gray-500 dark:text-gray-400">
             Manage your invoices and track payments
           </p>
         </div>
@@ -120,7 +118,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* Filters */}
-      <div className={`p-4 rounded-xl mb-6 ${darkMode ? 'bg-slate-800' : 'bg-white'} shadow-sm`}>
+      <div className="p-4 rounded-xl mb-6 bg-white dark:bg-slate-800 shadow-sm">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
             <SearchInput
@@ -133,7 +131,7 @@ export default function InvoicesPage() {
             />
           </div>
           <div className="flex items-center gap-2">
-            <Filter className={`w-4 h-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />
+            <Filter className="w-4 h-4 text-gray-500 dark:text-gray-400" />
             <select
               value={statusFilter}
               onChange={(e) => {
@@ -141,11 +139,7 @@ export default function InvoicesPage() {
                 setCurrentPage(1);
               }}
               data-testid="status-filter"
-              className={`px-3 py-2 rounded-lg border transition-colors ${
-                darkMode
-                  ? 'bg-slate-700 border-slate-600 text-white'
-                  : 'bg-white border-gray-300 text-gray-900'
-              }`}
+              className="px-3 py-2 rounded-lg border transition-colors bg-white border-gray-300 text-gray-900 dark:bg-slate-700 dark:border-slate-600 dark:text-white"
             >
               {statusOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -158,7 +152,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* Table */}
-      <div className={`rounded-xl overflow-hidden ${darkMode ? 'bg-slate-800' : 'bg-white'} shadow-sm`}>
+      <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-sm">
         {loading ? (
           <LoadingSpinner />
         ) : invoices.length === 0 ? (
@@ -172,31 +166,31 @@ export default function InvoicesPage() {
           <div className="overflow-x-auto">
             <table className="w-full" data-testid="invoices-table">
               <thead>
-                <tr className={darkMode ? 'bg-slate-700' : 'bg-gray-50'}>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                <tr className="bg-gray-50 dark:bg-slate-700">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Invoice #
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Customer
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Date
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Due Date
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Amount
                   </th>
-                  <th className={`px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Status
                   </th>
-                  <th className={`px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className={`divide-y ${darkMode ? 'divide-slate-700' : 'divide-gray-100'}`}>
+              <tbody className="divide-y divide-gray-100 dark:divide-slate-700">
                 {invoices.map((invoice) => {
                   const customer = getCustomerById(invoice.customerId);
                   return (
@@ -205,22 +199,22 @@ export default function InvoicesPage() {
                       className="table-row-hover transition-colors"
                       data-testid={`invoice-row-${invoice.id}`}
                     >
-                      <td className={`px-6 py-4 ${darkMode ? 'text-white' : 'text-gray-900'} font-medium`}>
+                      <td className="px-6 py-4 text-gray-900 dark:text-white font-medium">
                         {invoice.invoiceNumber}
                       </td>
-                      <td className={`px-6 py-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                         <div>{customer?.name || 'Unknown'}</div>
-                        <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
                           {customer?.contactPerson}
                         </div>
                       </td>
-                      <td className={`px-6 py-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                         {formatDate(invoice.invoiceDate)}
                       </td>
-                      <td className={`px-6 py-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                         {formatDate(invoice.dueDate)}
                       </td>
-                      <td className={`px-6 py-4 ${darkMode ? 'text-white' : 'text-gray-900'} font-medium`}>
+                      <td className="px-6 py-4 text-gray-900 dark:text-white font-medium">
                         {formatCurrency(invoice.total, invoice.currency)}
                       </td>
                       <td className="px-6 py-4">

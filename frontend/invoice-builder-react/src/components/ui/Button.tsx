@@ -1,5 +1,4 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react';
-import { useAppStore } from '../../store/appStore';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
@@ -9,19 +8,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className = '', variant = 'primary', size = 'md', loading, children, disabled, ...props }, ref) => {
-    const darkMode = useAppStore((state) => state.darkMode);
-
     const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 btn-transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
       primary: 'bg-violet-600 text-white hover:bg-violet-700 focus:ring-violet-500',
-      secondary: darkMode 
-        ? 'bg-slate-700 text-gray-200 hover:bg-slate-600 border border-slate-600 focus:ring-slate-500'
-        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 focus:ring-gray-500',
+      secondary: 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 focus:ring-gray-500 dark:bg-slate-700 dark:text-gray-200 dark:hover:bg-slate-600 dark:border-slate-600 dark:focus:ring-slate-500',
       danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
-      ghost: darkMode
-        ? 'text-gray-300 hover:bg-slate-700 hover:text-white focus:ring-slate-500'
-        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-gray-500',
+      ghost: 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-gray-500 dark:text-gray-300 dark:hover:bg-slate-700 dark:hover:text-white dark:focus:ring-slate-500',
     };
 
     const sizes = {

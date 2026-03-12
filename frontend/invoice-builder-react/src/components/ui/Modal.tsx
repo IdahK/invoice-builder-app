@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { X } from 'lucide-react';
-import { useAppStore } from '../../store/appStore';
 import Button from './Button';
 
 interface ModalProps {
@@ -13,8 +12,6 @@ interface ModalProps {
 }
 
 export default function Modal({ isOpen, onClose, title, children, footer, size = 'md' }: ModalProps) {
-  const darkMode = useAppStore((state) => state.darkMode);
-
   if (!isOpen) return null;
 
   const sizes = {
@@ -35,16 +32,12 @@ export default function Modal({ isOpen, onClose, title, children, footer, size =
       
       {/* Modal */}
       <div 
-        className={`relative w-full ${sizes[size]} rounded-xl shadow-2xl animate-scale-in ${
-          darkMode ? 'bg-slate-800' : 'bg-white'
-        }`}
+        className={`relative w-full ${sizes[size]} rounded-xl shadow-2xl animate-scale-in bg-white dark:bg-slate-800`}
         data-testid="modal-container"
       >
         {/* Header */}
-        <div className={`flex items-center justify-between px-6 py-4 border-b ${
-          darkMode ? 'border-slate-700' : 'border-gray-200'
-        }`}>
-          <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             {title}
           </h3>
           <Button
@@ -65,9 +58,7 @@ export default function Modal({ isOpen, onClose, title, children, footer, size =
 
         {/* Footer */}
         {footer && (
-          <div className={`flex items-center justify-end gap-3 px-6 py-4 border-t ${
-            darkMode ? 'border-slate-700' : 'border-gray-200'
-          }`}>
+          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 dark:border-slate-700">
             {footer}
           </div>
         )}

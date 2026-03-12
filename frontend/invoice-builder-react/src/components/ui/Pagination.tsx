@@ -1,5 +1,4 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useAppStore } from '../../store/appStore';
 import Button from './Button';
 
 interface PaginationProps {
@@ -17,8 +16,6 @@ export default function Pagination({
   totalItems,
   pageSize,
 }: PaginationProps) {
-  const darkMode = useAppStore((state) => state.darkMode);
-
   const startItem = (currentPage - 1) * pageSize + 1;
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
@@ -56,7 +53,7 @@ export default function Pagination({
 
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
-      <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
         Showing <span className="font-medium">{startItem}</span> to{' '}
         <span className="font-medium">{endItem}</span> of{' '}
         <span className="font-medium">{totalItems}</span> results
@@ -88,7 +85,7 @@ export default function Pagination({
           ) : (
             <span
               key={index}
-              className={`px-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}
+              className="px-2 text-gray-500 dark:text-gray-400"
             >
               {page}
             </span>

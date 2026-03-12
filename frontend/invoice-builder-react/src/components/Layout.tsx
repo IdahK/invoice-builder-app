@@ -29,9 +29,9 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-slate-900' : 'bg-gray-50'}`}>
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
       {/* Header */}
-      <header className={`sticky top-0 z-50 ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'} border-b shadow-sm`}>
+      <header className="sticky top-0 z-50 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 shadow-sm transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -39,7 +39,7 @@ export default function Layout({ children }: LayoutProps) {
               <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-lg">IB</span>
               </div>
-              <span className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <span className="text-xl font-semibold text-gray-900 dark:text-white">
                 Invoice Builder
               </span>
             </Link>
@@ -54,7 +54,7 @@ export default function Layout({ children }: LayoutProps) {
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActive(path)
                       ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300'
-                      : `${darkMode ? 'text-gray-300 hover:text-white hover:bg-slate-700' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-slate-700'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -69,26 +69,20 @@ export default function Layout({ children }: LayoutProps) {
               <div className="relative group">
                 <button
                   data-testid="settings-btn"
-                  className={`p-2 rounded-lg transition-colors ${
-                    darkMode 
-                      ? 'text-gray-400 hover:text-white hover:bg-slate-700' 
-                      : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                  }`}
+                  className="p-2 rounded-lg transition-colors text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-slate-700"
                 >
                   <Settings className="w-5 h-5" />
                 </button>
-                <div className={`absolute right-0 mt-2 w-48 py-2 rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ${
-                  darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'
-                }`}>
-                  <div className={`px-4 py-2 text-xs font-semibold uppercase ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <div className="absolute right-0 mt-2 w-48 py-2 rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-white border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+                  <div className="px-4 py-2 text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
                     PDF Generation
                   </div>
                   <button
                     data-testid="pdf-mode-client"
                     onClick={() => setPDFGenerationMode('client')}
-                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between ${
-                      darkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-100'
-                    } ${pdfGenerationMode === 'client' ? 'text-violet-600' : darkMode ? 'text-gray-300' : 'text-gray-700'}`}
+                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700 ${
+                      pdfGenerationMode === 'client' ? 'text-violet-600' : 'text-gray-700 dark:text-gray-300'
+                    }`}
                   >
                     Client-side
                     {pdfGenerationMode === 'client' && <span className="text-violet-600">✓</span>}
@@ -96,9 +90,9 @@ export default function Layout({ children }: LayoutProps) {
                   <button
                     data-testid="pdf-mode-server"
                     onClick={() => setPDFGenerationMode('server')}
-                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between ${
-                      darkMode ? 'hover:bg-slate-700' : 'hover:bg-gray-100'
-                    } ${pdfGenerationMode === 'server' ? 'text-violet-600' : darkMode ? 'text-gray-300' : 'text-gray-700'}`}
+                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700 ${
+                      pdfGenerationMode === 'server' ? 'text-violet-600' : 'text-gray-700 dark:text-gray-300'
+                    }`}
                   >
                     Server-side
                     {pdfGenerationMode === 'server' && <span className="text-violet-600">✓</span>}
@@ -110,11 +104,7 @@ export default function Layout({ children }: LayoutProps) {
               <button
                 onClick={toggleDarkMode}
                 data-testid="dark-mode-toggle"
-                className={`p-2 rounded-lg transition-colors ${
-                  darkMode 
-                    ? 'text-yellow-400 hover:text-yellow-300 hover:bg-slate-700' 
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                }`}
+                className="p-2 rounded-lg transition-colors text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-yellow-400 dark:hover:text-yellow-300 dark:hover:bg-slate-700"
               >
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
@@ -132,7 +122,7 @@ export default function Layout({ children }: LayoutProps) {
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                   isActive(path)
                     ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300'
-                    : `${darkMode ? 'text-gray-300' : 'text-gray-600'}`
+                    : 'text-gray-600 dark:text-gray-300'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -149,9 +139,9 @@ export default function Layout({ children }: LayoutProps) {
       </main>
 
       {/* Footer */}
-      <footer className={`border-t ${darkMode ? 'border-slate-700 bg-slate-800' : 'border-gray-200 bg-white'} mt-auto`}>
+      <footer className="border-t border-gray-200 bg-white dark:border-slate-700 dark:bg-slate-800 mt-auto transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className={`text-center text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
             Invoice Builder &copy; {new Date().getFullYear()} - Built with React, TypeScript & TailwindCSS
           </p>
         </div>
