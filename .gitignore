@@ -1,6 +1,7 @@
-# Environment variables
-.env
+-e
+# Environment files
 *.env
+*.env.*
 
 # Maven
 target/
