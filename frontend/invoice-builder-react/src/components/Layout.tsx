@@ -45,7 +45,7 @@ export default function Layout({ children }: LayoutProps) {
             </Link>
 
             {/* Navigation */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-8 flex-initial md:flex-1 justify-center ml-8">
               {navItems.map(({ path, label, icon: Icon }) => (
                 <Link
                   key={path}
@@ -64,7 +64,7 @@ export default function Layout({ children }: LayoutProps) {
             </nav>
 
             {/* Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 justify-self-end-safe">
               {/* PDF Mode Toggle */}
               <div className="relative group">
                 <button
@@ -101,6 +101,8 @@ export default function Layout({ children }: LayoutProps) {
               </div>
 
               {/* Dark Mode Toggle */}
+              <div className="relative group last:mr-4">
+
               <button
                 onClick={toggleDarkMode}
                 data-testid="dark-mode-toggle"
@@ -108,6 +110,7 @@ export default function Layout({ children }: LayoutProps) {
               >
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
+              </div>
             </div>
           </div>
         </div>
