@@ -149,19 +149,24 @@ export default function CustomersPage() {
       </div>
 
       {/* Search */}
-      <div className="p-4 rounded-xl mb-6 bg-white dark:bg-slate-800 shadow-sm">
-        <SearchInput
-          value={search}
-          onChange={(value) => {
-            setSearch(value);
-            setCurrentPage(1);
-          }}
-          placeholder="Search customers..."
-        />
+      <div className="p-6 rounded-xl mb-6 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+            Search
+          </label>
+          <SearchInput
+            value={search}
+            onChange={(value) => {
+              setSearch(value);
+              setCurrentPage(1);
+            }}
+            placeholder="Customer name, contact person, email..."
+          />
+        </div>
       </div>
 
       {/* Table */}
-      <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-sm">
+      <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
         {loading ? (
           <LoadingSpinner />
         ) : customers.length === 0 ? (

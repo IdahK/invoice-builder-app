@@ -167,7 +167,7 @@ export default function NewInvoicePage() {
           {/* Main Form */}
           <div className="lg:col-span-2 space-y-6">
             {/* Invoice Details */}
-            <div className="p-6 rounded-xl bg-white dark:bg-slate-800 shadow-sm">
+            <div className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
               <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
                 Invoice Details
               </h2>
@@ -187,7 +187,7 @@ export default function NewInvoicePage() {
             </div>
 
             {/* Line Items */}
-            <div className="p-6 rounded-xl bg-white dark:bg-slate-800 shadow-sm">
+            <div className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Line Items</h2>
                 <Button type="button" variant="secondary" size="sm" onClick={addLineItem} data-testid="add-line-item-btn">
@@ -239,7 +239,7 @@ export default function NewInvoicePage() {
 
           {/* Summary Sidebar */}
           <div className="lg:col-span-1">
-            <div className="p-6 rounded-xl bg-white dark:bg-slate-800 shadow-sm sticky top-24">
+            <div className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm sticky top-24">
               <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Summary</h2>
               <div className="space-y-3">
                 <div className="flex justify-between">

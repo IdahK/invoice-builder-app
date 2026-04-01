@@ -33,9 +33,9 @@ export default function Layout({ children }: LayoutProps) {
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 shadow-sm transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-16 gap-4">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3" data-testid="logo-link">
+            <Link to="/" className="flex items-center gap-3 shrink-0" data-testid="logo-link">
               <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-lg">IB</span>
               </div>
@@ -64,7 +64,7 @@ export default function Layout({ children }: LayoutProps) {
             </nav>
 
             {/* Actions */}
-            <div className="flex items-center gap-2 justify-self-end-safe">
+            <div className="flex items-center gap-2 justify-self-end-safe shrink-0">
               {/* PDF Mode Toggle */}
               <div className="relative group">
                 <button

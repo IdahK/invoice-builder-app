@@ -156,22 +156,30 @@ export default function InvoicesPage() {
       </div>
 
       {/* ── Filters ── */}
-      <div className="p-3 rounded-xl mb-5 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
-        <div className="flex flex-col sm:flex-row gap-2">
-          <div className="flex-1 min-w-0">
+      <div className="p-6 rounded-xl mb-6 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
+        <div className="space-y-4">
+          {/* Search Input */}
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+              Search
+            </label>
             <SearchInput
               value={search}
               onChange={(value) => { setSearch(value); setCurrentPage(1); }}
-              placeholder="Search invoices..."
+              placeholder="Invoice number, customer name..."
             />
           </div>
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Filter className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
+          
+          {/* Status Filter */}
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+              Status
+            </label>
             <select
               value={statusFilter}
               onChange={(e) => { setStatusFilter(e.target.value as InvoiceStatus | ''); setCurrentPage(1); }}
               data-testid="status-filter"
-              className="flex-1 sm:flex-none px-3 py-2 rounded-lg border text-sm bg-white border-gray-200 text-gray-700 dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/20 hover:border-gray-300 dark:hover:border-slate-500 transition-colors"
+              className="w-full px-4 py-2.5 rounded-lg border text-sm font-medium bg-white border-gray-200 text-gray-700 dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/30 hover:border-gray-300 dark:hover:border-slate-500 transition-colors"
             >
               {statusOptions.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
@@ -216,16 +224,16 @@ export default function InvoicesPage() {
                 </colgroup>
 
                 <thead>
-                  <tr className="bg-gray-50 dark:bg-slate-700/60 border-b border-gray-100 dark:border-slate-700">
+                  <tr className="bg-gray-50 dark:bg-slate-700/40 border-b border-gray-200 dark:border-slate-700">
                     {['Invoice #', 'Customer', 'Date', 'Due Date', 'Amount', 'Status'].map((h) => (
                       <th
                         key={h}
-                        className="px-6 py-4 text-left text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500"
+                        className="px-6 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-slate-700/40"
                       >
                         {h}
                       </th>
                     ))}
-                    <th className="px-6 py-4 text-right text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                    <th className="px-6 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-slate-700/40">
                       Actions
                     </th>
                   </tr>
@@ -237,37 +245,37 @@ export default function InvoicesPage() {
                     return (
                       <tr
                         key={invoice.id}
-                        className={`hover:bg-gray-50/80 dark:hover:bg-slate-700/30 transition-colors duration-100 ${
-                          i !== invoices.length - 1 ? 'border-b border-gray-100 dark:border-slate-700/60' : ''
+                        className={`hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors duration-150 ${
+                          i !== invoices.length - 1 ? 'border-b border-gray-100 dark:border-slate-700' : ''
                         }`}
                         data-testid={`invoice-row-${invoice.id}`}
                       >
                         {/* Invoice # */}
                         <td className="px-6 py-4">
-                          <span className="font-mono text-sm font-medium text-gray-900 dark:text-white">
+                          <span className="font-mono text-sm font-semibold text-gray-900 dark:text-white">
                             {invoice.invoiceNumber}
                           </span>
                         </td>
 
                         {/* Customer */}
                         <td className="px-6 py-4">
-                          <p className="text-sm font-medium text-gray-900 dark:text-white leading-snug">
+                          <p className="text-sm font-medium text-gray-900 dark:text-white leading-tight">
                             {customer?.name || 'Unknown'}
                           </p>
                           {customer?.contactPerson && (
-                            <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                               {customer.contactPerson}
                             </p>
                           )}
                         </td>
 
                         {/* Date */}
-                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                        <td className="px-6 py-4 text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
                           {formatDate(invoice.invoiceDate)}
                         </td>
 
                         {/* Due Date */}
-                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                        <td className="px-6 py-4 text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
                           {formatDate(invoice.dueDate)}
                         </td>
 
