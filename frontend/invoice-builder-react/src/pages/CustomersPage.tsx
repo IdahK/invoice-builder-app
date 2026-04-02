@@ -133,12 +133,12 @@ export default function CustomersPage() {
   return (
     <div className="animate-fade-in">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">
             Customers
           </h1>
-          <p className="text-sm mt-1 text-gray-500 dark:text-gray-400">
+          <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
             Manage your customer database
           </p>
         </div>
@@ -149,9 +149,9 @@ export default function CustomersPage() {
       </div>
 
       {/* Search */}
-      <div className="p-6 rounded-xl mb-6 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
+      <div className="p-6 rounded-lg mb-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm">
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-3">
             Search
           </label>
           <SearchInput
@@ -166,7 +166,7 @@ export default function CustomersPage() {
       </div>
 
       {/* Table */}
-      <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
+      <div className="rounded-lg overflow-hidden bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm">
         {loading ? (
           <LoadingSpinner />
         ) : customers.length === 0 ? (

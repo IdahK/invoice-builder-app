@@ -29,32 +29,32 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
+    <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-200 flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 shadow-sm transition-colors duration-200">
+      <header className="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-4">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 shrink-0" data-testid="logo-link">
-              <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-primary-600 rounded-lg flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
                 <span className="text-white font-bold text-lg">IB</span>
               </div>
-              <span className="text-xl font-semibold text-gray-900 dark:text-white">
+              <span className="hidden sm:block text-xl font-semibold text-gray-900 dark:text-white">
                 Invoice Builder
               </span>
             </Link>
 
             {/* Navigation */}
-            <nav className="hidden md:flex items-center gap-8 flex-initial md:flex-1 justify-center ml-8">
+            <nav className="hidden md:flex items-center gap-2 flex-initial md:flex-1 justify-center ml-8">
               {navItems.map(({ path, label, icon: Icon }) => (
                 <Link
                   key={path}
                   to={path}
                   data-testid={`nav-${label.toLowerCase().replace(' ', '-')}`}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-150 ${
                     isActive(path)
-                      ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-slate-700'
+                      ? 'bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-slate-800'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -69,7 +69,8 @@ export default function Layout({ children }: LayoutProps) {
               <div className="relative group">
                 <button
                   data-testid="settings-btn"
-                  className="p-2 rounded-lg transition-colors text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-slate-700"
+                  className="p-2 rounded-md transition-colors duration-150 text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-slate-800"
+                  title="Settings"
                 >
                   <Settings className="w-5 h-5" />
                 </button>
@@ -80,7 +81,7 @@ export default function Layout({ children }: LayoutProps) {
                   <button
                     data-testid="pdf-mode-client"
                     onClick={() => setPDFGenerationMode('client')}
-                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700 ${
+                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors ${
                       pdfGenerationMode === 'client' ? 'text-violet-600' : 'text-gray-700 dark:text-gray-300'
                     }`}
                   >
@@ -90,7 +91,7 @@ export default function Layout({ children }: LayoutProps) {
                   <button
                     data-testid="pdf-mode-server"
                     onClick={() => setPDFGenerationMode('server')}
-                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700 ${
+                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors ${
                       pdfGenerationMode === 'server' ? 'text-violet-600' : 'text-gray-700 dark:text-gray-300'
                     }`}
                   >
@@ -101,31 +102,29 @@ export default function Layout({ children }: LayoutProps) {
               </div>
 
               {/* Dark Mode Toggle */}
-              <div className="relative group last:mr-4">
-
               <button
                 onClick={toggleDarkMode}
                 data-testid="dark-mode-toggle"
-                className="p-2 rounded-lg transition-colors text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-yellow-400 dark:hover:text-yellow-300 dark:hover:bg-slate-700"
+                className="p-2 rounded-md transition-colors duration-150 text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-slate-800"
+                title={darkMode ? 'Light mode' : 'Dark mode'}
               >
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              </div>
             </div>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden border-t border-gray-200 dark:border-slate-700">
+        <div className="md:hidden border-t border-gray-200 dark:border-slate-800">
           <div className="flex overflow-x-auto py-2 px-4 gap-2">
             {navItems.map(({ path, label, icon: Icon }) => (
               <Link
                 key={path}
                 to={path}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-all duration-150 ${
                   isActive(path)
-                    ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300'
-                    : 'text-gray-600 dark:text-gray-300'
+                    ? 'bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300'
+                    : 'text-gray-600 dark:text-gray-400'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -137,14 +136,14 @@ export default function Layout({ children }: LayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white dark:border-slate-700 dark:bg-slate-800 mt-auto transition-colors duration-200">
+      <footer className="border-t border-gray-200 bg-white dark:border-slate-800 dark:bg-slate-900 mt-auto transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             Invoice Builder &copy; {new Date().getFullYear()} - Built with React, TypeScript & TailwindCSS
           </p>
         </div>

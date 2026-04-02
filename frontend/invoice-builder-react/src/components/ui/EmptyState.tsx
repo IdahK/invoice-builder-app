@@ -17,14 +17,14 @@ export default function EmptyState({
   icon,
 }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center py-12 text-center">
-      <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4 bg-gray-100 dark:bg-slate-700">
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <div className="w-16 h-16 rounded-lg flex items-center justify-center mb-5 bg-gray-100 dark:bg-slate-700">
         {icon || <AlertCircle className="w-8 h-8 text-gray-500 dark:text-gray-400" />}
       </div>
-      <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
+      <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
         {title}
       </h3>
-      <p className="text-sm mb-6 max-w-sm text-gray-500 dark:text-gray-400">
+      <p className="text-sm mb-8 max-w-sm text-gray-600 dark:text-gray-400">
         {description}
       </p>
       {actionLabel && onAction && (
