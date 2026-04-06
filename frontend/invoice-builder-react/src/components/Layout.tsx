@@ -11,35 +11,51 @@ export default function Layout({ children, onSearchChange }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-200 flex">
+    <div style={{ display: 'flex', minHeight: '100vh' }} className="bg-gray-50 dark:bg-slate-950">
       {/* Mobile Overlay when sidebar is open */}
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => setSidebarOpen(false)} />
+        <div 
+          style={{ 
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 30
+          }}
+          className="hidden md:hidden"
+          onClick={() => setSidebarOpen(false)} 
+        />
       )}
 
-      {/* Sidebar */}
-      <div className={`
-        hidden md:block md:w-64 md:flex-shrink-0 md:relative md:z-0
-      `}>
+      {/* Desktop Sidebar */}
+      <div style={{ width: '256px', flexShrink: 0 }} className="hidden md:block md:relative md:z-0">
         <Sidebar />
       </div>
 
       {/* Mobile Sidebar - Overlay */}
-      <div className={`
-        fixed inset-y-0 left-0 w-64 z-40 md:hidden transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-      `}>
+      <div 
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          width: '256px',
+          zIndex: 40,
+          transform: sidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
+          transition: 'transform 0.3s ease-in-out'
+        }}
+        className="hidden md:hidden"
+      >
         <Sidebar />
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         {/* Header */}
         <Header onSearchChange={onSearchChange} />
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto">
-          <div className="p-4 sm:p-6 lg:p-8">
+        <main style={{ flex: 1, overflowY: 'auto' }}>
+          <div style={{ padding: '16px' }} className="sm:p-6 lg:p-8">
             {children}
           </div>
         </main>
