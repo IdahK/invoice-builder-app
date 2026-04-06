@@ -142,16 +142,16 @@ export default function InvoicesPage() {
         <div>
           <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Invoices</h1>
           <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
-            Manage your invoices and track payments
+            Manage your recurring billing and monitor real-time payment status across your client portfolio.
           </p>
         </div>
         <Button
           onClick={() => navigate('/invoices/new')}
           data-testid="new-invoice-btn"
-          className="w-full sm:w-auto justify-center"
+          className="hidden sm:flex"
         >
           <Plus className="w-4 h-4" />
-          New Invoice
+          Export All
         </Button>
       </div>
 
