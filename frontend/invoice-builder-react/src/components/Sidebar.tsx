@@ -31,7 +31,7 @@ export default function Sidebar({ onLogout, isAuthenticated = true }: SidebarPro
   };
 
   return (
-    <div className="flex flex-col h-screen w-64 bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-800 transition-colors duration-200">
+    <div className="flex flex-col h-screen w-full bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-800 transition-colors duration-200 overflow-hidden">
       {/* Header with Logo */}
       <div className="p-4 border-b border-gray-200 dark:border-slate-800">
         <Link to="/" className="flex items-center gap-2">

@@ -11,21 +11,29 @@ export default function Layout({ children, onSearchChange }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-200 flex">
       {/* Mobile Overlay when sidebar is open */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-300 ease-in-out md:relative md:z-0 md:transform-none ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } md:translate-x-0`}>
+      <div className={`
+        hidden md:block md:w-64 md:flex-shrink-0 md:relative md:z-0
+      `}>
+        <Sidebar />
+      </div>
+
+      {/* Mobile Sidebar - Overlay */}
+      <div className={`
+        fixed inset-y-0 left-0 w-64 z-40 md:hidden transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
         <Sidebar />
       </div>
 
       {/* Main Content Area */}
-      <div className="flex flex-col min-h-screen md:ml-64">
+      <div className="flex-1 flex flex-col min-h-screen">
         {/* Header */}
         <Header onSearchChange={onSearchChange} />
 
