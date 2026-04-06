@@ -53,8 +53,8 @@ const statusConfig: Record<string, { dot: string; badge: string; label: string }
 function StatusBadge({ status }: { status: string }) {
   const config = statusConfig[status] ?? statusConfig.draft;
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${config.badge}`}>
-      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${config.dot}`} />
+    <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold ${config.badge} transition-colors`}>
+      <span className={`w-2 h-2 rounded-full shrink-0 ${config.dot}`} />
       {config.label}
     </span>
   );
@@ -138,29 +138,29 @@ export default function InvoicesPage() {
     <div className="animate-fade-in">
 
       {/* ── Page header ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Invoices</h1>
-          <p className="text-sm mt-1 text-gray-500 dark:text-gray-400">
-            Manage your invoices and track payments
+          <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Invoices</h1>
+          <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
+            Manage your recurring billing and monitor real-time payment status across your client portfolio.
           </p>
         </div>
         <Button
           onClick={() => navigate('/invoices/new')}
           data-testid="new-invoice-btn"
-          className="w-full sm:w-auto justify-center"
+          className="hidden sm:flex"
         >
           <Plus className="w-4 h-4" />
-          New Invoice
+          Export All
         </Button>
       </div>
 
       {/* ── Filters ── */}
-      <div className="p-6 rounded-xl mb-6 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
+      <div className="p-6 rounded-lg mb-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm">
         <div className="space-y-4">
           {/* Search Input */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-3">
               Search
             </label>
             <SearchInput
@@ -172,14 +172,14 @@ export default function InvoicesPage() {
           
           {/* Status Filter */}
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-3">
               Status
             </label>
             <select
               value={statusFilter}
               onChange={(e) => { setStatusFilter(e.target.value as InvoiceStatus | ''); setCurrentPage(1); }}
               data-testid="status-filter"
-              className="w-full px-4 py-2.5 rounded-lg border text-sm font-medium bg-white border-gray-200 text-gray-700 dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/30 hover:border-gray-300 dark:hover:border-slate-500 transition-colors"
+              className="w-full px-4 py-2.5 rounded-md border text-sm font-medium bg-white border-gray-300 text-gray-700 dark:bg-slate-700 dark:border-slate-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500/20 hover:border-gray-400 dark:hover:border-slate-500 transition-all"
             >
               {statusOptions.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
@@ -190,7 +190,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* ── Table card ── */}
-      <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
+      <div className="rounded-lg overflow-hidden bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm">
         {loading ? (
           <LoadingSpinner />
         ) : invoices.length === 0 ? (

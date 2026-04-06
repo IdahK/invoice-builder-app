@@ -9,6 +9,10 @@ import NewInvoicePage from './pages/NewInvoicePage';
 import EditInvoicePage from './pages/EditInvoicePage';
 import ViewInvoicePage from './pages/ViewInvoicePage';
 
+// Placeholder pages for Settings - we'll update these if they exist
+const SettingsPage = () => <div className="p-8 text-center text-gray-600">Settings page coming soon</div>;
+const HelpPage = () => <div className="p-8 text-center text-gray-600">Help page coming soon</div>;
+
 function App() {
   const darkMode = useAppStore((state) => state.darkMode);
 
@@ -30,6 +34,8 @@ function App() {
         <Route path="/invoices/:id" element={<ViewInvoicePage />} />
         <Route path="/customers" element={<CustomersPage />} />
         <Route path="/senders" element={<SendersPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/help" element={<HelpPage />} />
       </Routes>
     </Layout>
   );

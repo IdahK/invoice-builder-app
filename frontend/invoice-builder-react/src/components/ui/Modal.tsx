@@ -32,11 +32,11 @@ export default function Modal({ isOpen, onClose, title, children, footer, size =
       
       {/* Modal */}
       <div 
-        className={`relative w-full ${sizes[size]} rounded-xl shadow-2xl animate-scale-in bg-white dark:bg-slate-800`}
+        className={`relative w-full ${sizes[size]} rounded-lg shadow-xl animate-scale-in bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700`}
         data-testid="modal-container"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200 dark:border-slate-700">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             {title}
           </h3>

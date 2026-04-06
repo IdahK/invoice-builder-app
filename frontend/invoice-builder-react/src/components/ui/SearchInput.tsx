@@ -17,17 +17,17 @@ export default function SearchInput({ value, onChange, placeholder = 'Search...'
         placeholder={placeholder}
         data-testid="search-input"
         className="
-          w-full pl-10 pr-10 py-2 text-sm rounded-lg
-          border border-gray-200 dark:border-slate-600
+          w-full pl-10 pr-10 py-2.5 text-sm rounded-md
+          border border-gray-300 dark:border-slate-600
           bg-white dark:bg-slate-800
           text-gray-900 dark:text-white
-          placeholder-gray-400 dark:placeholder-gray-500
+          placeholder-gray-500 dark:placeholder-gray-400
           shadow-sm
           transition-all duration-150
           focus:outline-none
-          focus:border-violet-400 dark:focus:border-violet-500
+          focus:border-violet-500 dark:focus:border-violet-500
           focus:ring-2 focus:ring-violet-500/20
-          hover:border-gray-300 dark:hover:border-slate-500
+          hover:border-gray-400 dark:hover:border-slate-500
         "
       />
       {value && (

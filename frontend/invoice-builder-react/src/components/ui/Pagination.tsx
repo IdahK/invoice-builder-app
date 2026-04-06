@@ -52,14 +52,14 @@ export default function Pagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200 dark:border-slate-700">
       <p className="text-sm text-gray-600 dark:text-gray-400">
-        Showing <span className="font-medium">{startItem}</span> to{' '}
-        <span className="font-medium">{endItem}</span> of{' '}
-        <span className="font-medium">{totalItems}</span> results
+        Showing <span className="font-medium text-gray-900 dark:text-white">{startItem}</span> to{' '}
+        <span className="font-medium text-gray-900 dark:text-white">{endItem}</span> of{' '}
+        <span className="font-medium text-gray-900 dark:text-white">{totalItems}</span> results
       </p>
 
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2">
         <Button
           variant="secondary"
           size="sm"

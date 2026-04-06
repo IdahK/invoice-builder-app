@@ -46,7 +46,7 @@ export default function ConfirmDialog({
         </>
       }
     >
-      <p className="text-gray-600 dark:text-gray-300">{message}</p>
+      <p className="text-gray-700 dark:text-gray-300">{message}</p>
     </Modal>
   );
 }

@@ -1,154 +1,74 @@
-import { ReactNode } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FileText, Users, Building2, Plus, Moon, Sun, Settings } from 'lucide-react';
-import { useAppStore } from '../store/appStore';
+import { ReactNode, useState } from 'react';
+import Sidebar from './Sidebar';
+import Header from './Header';
 
 interface LayoutProps {
   children: ReactNode;
+  onSearchChange?: (query: string) => void;
 }
 
-export default function Layout({ children }: LayoutProps) {
-  const location = useLocation();
-  const { darkMode, toggleDarkMode, pdfGenerationMode, setPDFGenerationMode } = useAppStore();
-
-  const navItems = [
-    { path: '/invoices', label: 'Invoices', icon: FileText },
-    { path: '/customers', label: 'Customers', icon: Users },
-    { path: '/senders', label: 'Senders', icon: Building2 },
-    { path: '/invoices/new', label: 'New Invoice', icon: Plus },
-  ];
-
-  const isActive = (path: string) => {
-    if (path === '/invoices/new') {
-      return location.pathname === path;
-    }
-    if (path === '/invoices') {
-      return location.pathname === path || location.pathname.startsWith('/invoices/');
-    }
-    return location.pathname.startsWith(path);
-  };
+export default function Layout({ children, onSearchChange }: LayoutProps) {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 shadow-sm transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 gap-4">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 shrink-0" data-testid="logo-link">
-              <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">IB</span>
-              </div>
-              <span className="text-xl font-semibold text-gray-900 dark:text-white">
-                Invoice Builder
-              </span>
-            </Link>
+    <div style={{ display: 'flex', minHeight: '100vh' }} className="bg-gray-50 dark:bg-slate-950">
+      {/* Mobile Overlay when sidebar is open */}
+      {sidebarOpen && (
+        <div 
+          style={{ 
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 30
+          }}
+          className="hidden md:hidden"
+          onClick={() => setSidebarOpen(false)} 
+        />
+      )}
 
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center gap-8 flex-initial md:flex-1 justify-center ml-8">
-              {navItems.map(({ path, label, icon: Icon }) => (
-                <Link
-                  key={path}
-                  to={path}
-                  data-testid={`nav-${label.toLowerCase().replace(' ', '-')}`}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    isActive(path)
-                      ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-slate-700'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  {label}
-                </Link>
-              ))}
-            </nav>
+      {/* Desktop Sidebar */}
+      <div style={{ width: '256px', flexShrink: 0 }} className="hidden md:block md:relative md:z-0">
+        <Sidebar />
+      </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-2 justify-self-end-safe shrink-0">
-              {/* PDF Mode Toggle */}
-              <div className="relative group">
-                <button
-                  data-testid="settings-btn"
-                  className="p-2 rounded-lg transition-colors text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-slate-700"
-                >
-                  <Settings className="w-5 h-5" />
-                </button>
-                <div className="absolute right-0 mt-2 w-48 py-2 rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-white border-gray-200 dark:bg-slate-800 dark:border-slate-700">
-                  <div className="px-4 py-2 text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
-                    PDF Generation
-                  </div>
-                  <button
-                    data-testid="pdf-mode-client"
-                    onClick={() => setPDFGenerationMode('client')}
-                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700 ${
-                      pdfGenerationMode === 'client' ? 'text-violet-600' : 'text-gray-700 dark:text-gray-300'
-                    }`}
-                  >
-                    Client-side
-                    {pdfGenerationMode === 'client' && <span className="text-violet-600">✓</span>}
-                  </button>
-                  <button
-                    data-testid="pdf-mode-server"
-                    onClick={() => setPDFGenerationMode('server')}
-                    className={`w-full px-4 py-2 text-left text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-slate-700 ${
-                      pdfGenerationMode === 'server' ? 'text-violet-600' : 'text-gray-700 dark:text-gray-300'
-                    }`}
-                  >
-                    Server-side
-                    {pdfGenerationMode === 'server' && <span className="text-violet-600">✓</span>}
-                  </button>
-                </div>
-              </div>
+      {/* Mobile Sidebar - Overlay */}
+      <div 
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          width: '256px',
+          zIndex: 40,
+          transform: sidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
+          transition: 'transform 0.3s ease-in-out'
+        }}
+        className="hidden md:hidden"
+      >
+        <Sidebar />
+      </div>
 
-              {/* Dark Mode Toggle */}
-              <div className="relative group last:mr-4">
+      {/* Main Content Area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        {/* Header */}
+        <Header onSearchChange={onSearchChange} />
 
-              <button
-                onClick={toggleDarkMode}
-                data-testid="dark-mode-toggle"
-                className="p-2 rounded-lg transition-colors text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-yellow-400 dark:hover:text-yellow-300 dark:hover:bg-slate-700"
-              >
-                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-              </div>
-            </div>
+        {/* Page Content */}
+        <main style={{ flex: 1, overflowY: 'auto' }}>
+          <div style={{ padding: '16px' }} className="sm:p-6 lg:p-8">
+            {children}
           </div>
-        </div>
+        </main>
 
-        {/* Mobile Navigation */}
-        <div className="md:hidden border-t border-gray-200 dark:border-slate-700">
-          <div className="flex overflow-x-auto py-2 px-4 gap-2">
-            {navItems.map(({ path, label, icon: Icon }) => (
-              <Link
-                key={path}
-                to={path}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
-                  isActive(path)
-                    ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300'
-                    : 'text-gray-600 dark:text-gray-300'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-              </Link>
-            ))}
+        {/* Footer */}
+        <footer className="border-t border-gray-200 bg-white dark:border-slate-800 dark:bg-slate-900 transition-colors duration-200">
+          <div className="px-4 sm:px-6 lg:px-8 py-6">
+            <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+              Invoice Builder &copy; {new Date().getFullYear()} - Built with React, TypeScript & TailwindCSS
+            </p>
           </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {children}
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white dark:border-slate-700 dark:bg-slate-800 mt-auto transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-            Invoice Builder &copy; {new Date().getFullYear()} - Built with React, TypeScript & TailwindCSS
-          </p>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }
